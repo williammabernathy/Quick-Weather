@@ -2,4 +2,52 @@
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
+  background: darkgray;
+  
+}
+
+.headerTitle{
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 500%;
+  padding-bottom: 3%;
+}
+
+.cardDeckContainer{
+  min-height: calc(100vh - 50px)
+}
+
+.bsCardDeck{
+  padding: 1%;
+}
+
+.formContainer {
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formLabel{
+  float: left;
+  left: 0px;
+  padding-left: 5px;
+}
+
+.formText{
+  font-size: x-small;
+}
+
+.bsCardImage {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footerContainer{
+  background-color: gray;
+  padding: 1%;
 }

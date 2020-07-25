@@ -48,11 +48,20 @@ function getWeatherIcons(results) {
   return weatherIcons;
 }
 
+// function for getting the daily temperatures
+// returns the temperatures at 24 hour intervals
+// NOTE: API returns in 3 hour increments
+// increment list[] by 7 increments for 24 hour increments
 function getDailyTemperatures(results) {
   var temperaturesDaily = new Array(5);
+  var incrementTempArray = 0;
 
-  for (var i = 0; i < 5; i++) {
-    temperaturesDaily[i] = Math.round(results.list[i].main.temp * (9 / 5) - 459.67);
+  for (var i = 0; i < 39; i++) {
+    if (results.list[i].dt_txt.includes("12:00:00")) {
+      temperaturesDaily[incrementTempArray] = Math.round(results.list[i].main.temp * (9 / 5) - 459.67);
+      //temperaturesDaily[incrementTempArray] = results.list[i].main.temp;
+      incrementTempArray++;
+    }
   }
 
   return temperaturesDaily;
@@ -102,71 +111,84 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>Quick Weather</h1>
+        <header>
+          <h1 className="headerTitle">Quick Weather</h1>
+        </header>
 
-        <Form>
-          <Form.Group>
-            <Form.Label>Zip Code</Form.Label>
-            <Form.Control placeholder="5 digi zip code" />
-            <Form.Text>
-              Currently, only US is supported.
-            </Form.Text>
-          </Form.Group>
-        </Form>
+        <div className="formContainer">
+          <Form>
+            <Form.Group>
+              <Form.Label className="formLabel">Zip Code:</Form.Label>
+              <Form.Control className="controlSearchBar" placeholder="5 digi zip code" />
+              <Form.Text className="formText">
+                Currently, only the U.S. is supported.
+              </Form.Text>
+            </Form.Group>
+          </Form>
+        </div>
 
-        <CardDeck>
+        <div className="cardDeckContainer">
+          <CardDeck className="bsCardDeck">
 
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
-            <Card.Body>
-              <Card.Title>{days[0]}</Card.Title>
-              <Card.Text>
-                {temperaturesDaily[0]}&deg;F
+            <Card style={{ width: '18rem' }}>
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[0]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[0]}&deg;F
               </Card.Text>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
 
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
-            <Card.Body>
-              <Card.Title>{days[1]}</Card.Title>
-              <Card.Text>
-                {temperaturesDaily[1]}&deg;F
+            <Card style={{ width: '18rem' }}>
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[1]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[1]}&deg;F
               </Card.Text>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
 
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
-            <Card.Body>
-              <Card.Title>{days[2]}</Card.Title>
-              <Card.Text>
-                {temperaturesDaily[2]}&deg;F
+            <Card style={{ width: '18rem' }}>
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[2]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[2]}&deg;F
               </Card.Text>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
 
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
-            <Card.Body>
-              <Card.Title>{days[3]}</Card.Title>
-              <Card.Text>
-                {temperaturesDaily[3]}&deg;F
+            <Card style={{ width: '18rem' }}>
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[3]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[3]}&deg;F
               </Card.Text>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
 
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
-            <Card.Body>
-              <Card.Title>{days[4]}</Card.Title>
-              <Card.Text>
-                {temperaturesDaily[4]}&deg;F
+            <Card style={{ width: '18rem' }}>
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[4]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[4]}&deg;F
               </Card.Text>
-            </Card.Body>
-          </Card>
+              </Card.Body>
+            </Card>
 
-        </CardDeck>
+          </CardDeck>
+
+        </div>
+
+        <div className="footerContainer">
+          <footer>
+            Footer
+          </footer>
+        </div>
       </div>
     );
   }
