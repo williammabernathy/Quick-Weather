@@ -1,10 +1,62 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import weatherPlaceholder from './weatherPlaceholder.png';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Form from 'react-bootstrap/Form';
 import './App.css';
+
+// function for getting the day of the week using Date
+// returns and array of the current day + the next four
+// used to populate cards in App
+function getDaysOfWeek() {
+  var d = new Date();
+  var weekday = new Array(7);
+  var days = new Array(5);
+  var currentDay = d.getDay();
+
+  weekday[0] = "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
+
+  days[0] = weekday[currentDay];
+
+  for (var i = 0; i < 4; i++) {
+    currentDay++;
+    if (currentDay === 7) {
+      currentDay = 0;
+    }
+    days[i + 1] = weekday[currentDay];
+  }
+
+  return days;
+}
+
+// function for getting all weather icons
+// placing them in an array
+// and returning to be used to populate cards in App
+function getWeatherIcons(results) {
+  var weatherIcons = new Array(5);
+
+  for (var i = 0; i < 5; i++) {
+    weatherIcons[i] = "http://openweathermap.org/img/wn/" + results.list[i].weather[0].icon + "@2x.png";
+  }
+
+  return weatherIcons;
+}
+
+function getDailyTemperatures(results) {
+  var temperaturesDaily = new Array(5);
+
+  for (var i = 0; i < 5; i++) {
+    temperaturesDaily[i] = Math.round(results.list[i].main.temp * (9 / 5) - 459.67);
+  }
+
+  return temperaturesDaily;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -44,6 +96,10 @@ class App extends React.Component {
     // if results are initially empty, return null
     if (!results) { return null; }
 
+    var days = getDaysOfWeek();
+    var weatherIcons = getWeatherIcons(results);
+    var temperaturesDaily = getDailyTemperatures(results);
+
     return (
       <div className="App">
         <h1>Quick Weather</h1>
@@ -61,51 +117,51 @@ class App extends React.Component {
         <CardDeck>
 
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={"http://openweathermap.org/img/w/" + results.list[0].weather[0].icon + ".png"} alt="Weather Placeholder image" />
+            <Card.Img variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
             <Card.Body>
-              <Card.Title>Day One</Card.Title>
+              <Card.Title>{days[0]}</Card.Title>
               <Card.Text>
-                {results.list[0].main.temp}
+                {temperaturesDaily[0]}&deg;F
               </Card.Text>
             </Card.Body>
           </Card>
 
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={"http://openweathermap.org/img/w/" + results.list[1].weather[0].icon + ".png"} alt="Weather Placeholder image" />
+            <Card.Img variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
             <Card.Body>
-              <Card.Title>Day Two</Card.Title>
+              <Card.Title>{days[1]}</Card.Title>
               <Card.Text>
-                {results.list[1].main.temp}
+                {temperaturesDaily[1]}&deg;F
               </Card.Text>
             </Card.Body>
           </Card>
 
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={"http://openweathermap.org/img/w/" + results.list[2].weather[0].icon + ".png"} alt="Weather Placeholder image" />
+            <Card.Img variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
             <Card.Body>
-              <Card.Title>Day Three</Card.Title>
+              <Card.Title>{days[2]}</Card.Title>
               <Card.Text>
-                {results.list[2].main.temp}
+                {temperaturesDaily[2]}&deg;F
               </Card.Text>
             </Card.Body>
           </Card>
 
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={"http://openweathermap.org/img/w/" + results.list[3].weather[0].icon + ".png"} alt="Weather Placeholder image" />
+            <Card.Img variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
             <Card.Body>
-              <Card.Title>Day Four</Card.Title>
+              <Card.Title>{days[3]}</Card.Title>
               <Card.Text>
-                {results.list[3].main.temp}
+                {temperaturesDaily[3]}&deg;F
               </Card.Text>
             </Card.Body>
           </Card>
 
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={"http://openweathermap.org/img/w/" + results.list[4].weather[0].icon + ".png"} alt="Weather Placeholder image" />
+            <Card.Img variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
             <Card.Body>
-              <Card.Title>Day Five</Card.Title>
+              <Card.Title>{days[4]}</Card.Title>
               <Card.Text>
-                {results.list[4].main.temp}
+                {temperaturesDaily[4]}&deg;F
               </Card.Text>
             </Card.Body>
           </Card>
