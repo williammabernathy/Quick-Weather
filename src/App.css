@@ -1,22 +1,48 @@
 .App {
+  z-index: -2;
+}
+
+.img {
+  max-width:100%;
+  max-height:100%;
+}
+
+.backGroundImage {
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: stretch;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  min-height: calc(100vh - 50px);
+}
+
+.contentContainer {
+  position: relative;
   text-align: center;
-  padding-left: 10%;
-  padding-right: 10%;
-  background: darkgray;
-  
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+  background: #a6b7ce;
+  /*background-color: rgba(166, 183, 206, 0);*/
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
 }
 
-.headerTitle{
-  font-family: "Lucida Console", Courier, monospace;
+.headerTitle {
+  font-family: "Palanquin Dark", Courier, monospace;
   font-size: 500%;
-  padding-bottom: 3%;
+  padding-bottom: 1%;
 }
 
-.cardDeckContainer{
-  min-height: calc(100vh - 50px)
+.cardDeckContainer {
+  padding: 2%;
+  height: 100%;
+  /*min-height: calc(100vh - 50px);*/
 }
 
-.bsCardDeck{
+.bsCardDeck {
   padding: 1%;
 }
 
@@ -29,13 +55,13 @@
   margin-right: auto;
 }
 
-.formLabel{
+.formLabel {
   float: left;
   left: 0px;
   padding-left: 5px;
 }
 
-.formText{
+.formText {
   font-size: x-small;
 }
 
@@ -47,7 +73,24 @@
   margin-right: auto;
 }
 
-.footerContainer{
+.weatherCards {
+  width: "18rem";
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+.weatherCards:hover {
+  z-index: 5;
+  transform: scale(1.1);
+}
+
+.footerContainer {
   background-color: gray;
+  position: absolute;
+  bottom: 0px;
+  padding: 1%;
+  width: 100%;
+}
+
+.footer {
   padding: 1%;
 }

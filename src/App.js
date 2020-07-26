@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Form from 'react-bootstrap/Form';
+import backgroundImage from './openWeatherBackground.png';
 import './App.css';
 
 // function for getting the day of the week using Date
@@ -111,83 +112,86 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <header>
-          <h1 className="headerTitle">Quick Weather</h1>
-        </header>
+        <img className="backGroundImage" src={backgroundImage} alt="Background" />
+        <div className="contentContainer">
+          <header>
+            <h1 className="headerTitle">Quick Weather</h1>
+          </header>
 
-        <div className="formContainer">
-          <Form>
-            <Form.Group>
-              <Form.Label className="formLabel">Zip Code:</Form.Label>
-              <Form.Control className="controlSearchBar" placeholder="5 digi zip code" />
-              <Form.Text className="formText">
-                Currently, only the U.S. is supported.
-              </Form.Text>
-            </Form.Group>
-          </Form>
-        </div>
+          <div className="formContainer">
+            <Form>
+              <Form.Group>
+                <Form.Label className="formLabel">Zip Code:</Form.Label>
+                <Form.Control className="controlSearchBar" placeholder="5 digit zip code" />
+                <Form.Text className="formText">
+                  Currently, only the U.S. is supported.
+                  </Form.Text>
+              </Form.Group>
+            </Form>
+          </div>
 
-        <div className="cardDeckContainer">
-          <CardDeck className="bsCardDeck">
+          <div className="cardDeckContainer">
+            <CardDeck className="bsCardDeck">
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[0]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[0]}&deg;F
-              </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card className="weatherCards">
+                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
+                <Card.Body>
+                  <Card.Title>{days[0]}</Card.Title>
+                  <Card.Text>
+                    {temperaturesDaily[0]}&deg;F
+                    </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[1]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[1]}&deg;F
-              </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card className="weatherCards">
+                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
+                <Card.Body>
+                  <Card.Title>{days[1]}</Card.Title>
+                  <Card.Text>
+                    {temperaturesDaily[1]}&deg;F
+                    </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[2]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[2]}&deg;F
-              </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card className="weatherCards">
+                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
+                <Card.Body>
+                  <Card.Title>{days[2]}</Card.Title>
+                  <Card.Text>
+                    {temperaturesDaily[2]}&deg;F
+                    </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[3]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[3]}&deg;F
-              </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card className="weatherCards">
+                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
+                <Card.Body>
+                  <Card.Title>{days[3]}</Card.Title>
+                  <Card.Text>
+                    {temperaturesDaily[3]}&deg;F
+                    </Card.Text>
+                </Card.Body>
+              </Card>
 
-            <Card style={{ width: '18rem' }}>
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[4]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[4]}&deg;F
-              </Card.Text>
-              </Card.Body>
-            </Card>
+              <Card className="weatherCards">
+                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
+                <Card.Body>
+                  <Card.Title>{days[4]}</Card.Title>
+                  <Card.Text>
+                    {temperaturesDaily[4]}&deg;F
+                    </Card.Text>
+                </Card.Body>
+              </Card>
 
-          </CardDeck>
+            </CardDeck>
 
-        </div>
+          </div>
 
-        <div className="footerContainer">
-          <footer>
-            Footer
-          </footer>
+          <div className="footerContainer">
+            <footer>
+              Footer
+            </footer>
+          </div>
         </div>
       </div>
     );
