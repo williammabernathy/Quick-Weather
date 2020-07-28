@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import backgroundImage from './openWeatherBackground.png';
 import './App.css';
 
@@ -79,6 +80,8 @@ class App extends React.Component {
 
     this.setWeather = this.setWeather.bind(this);
     this.fetchWeather = this.fetchWeather.bind(this);
+    this.fetchWeatherSearch = this.fetchWeatherSearch.bind(this);
+    this.handelZipChange = this.handelZipChange.bind(this);
   }
 
   // set the results with returned json data
@@ -93,19 +96,32 @@ class App extends React.Component {
       .then(results => this.setWeather(results));
   }
 
+  fetchWeatherSearch(event) {
+    event.preventDefault();
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${this.state.searchZipCode},us&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+      .then(response => response.json())
+      .then(results => this.setWeather(results));
+  }
+
   // when component mounts/lifecycle update, update the searched term and refetch data
   componentDidMount() {
     const { searchZipCode } = this.state;
     this.fetchWeather(searchZipCode);
   }
 
+  handelZipChange(event) {
+    event.preventDefault();
+    this.setState({ searchZipCode: event.target.value });
+  }
+
   // render the app
   render() {
-    const { results, searchZipCode } = this.state;
+    const { results } = this.state;
 
     // if results are initially empty, return null
     if (!results) { return null; }
 
+    // sort our fetched data to populate fields
     var days = getDaysOfWeek();
     var weatherIcons = getWeatherIcons(results);
     var temperaturesDaily = getDailyTemperatures(results);
@@ -119,14 +135,22 @@ class App extends React.Component {
           </header>
 
           <div className="formContainer">
-            <Form>
+            <Form onSubmit={ (event) => {this.fetchWeatherSearch(event)} }>
               <Form.Group>
                 <Form.Label className="formLabel">Zip Code:</Form.Label>
-                <Form.Control className="controlSearchBar" placeholder="5 digit zip code" />
+                <Form.Control
+                  className="controlSearchBar"
+                  value={this.state.searchZipCode}
+                  type="text"
+                  placeholder="5 digit zip code"
+                  onChange={ (event) => {this.setState({ searchZipCode: event.target.value })} }
+                />
                 <Form.Text className="formText">
                   Currently, only the U.S. is supported.
-                  </Form.Text>
+                </Form.Text>
               </Form.Group>
+
+              <Button as="input" type="submit" value="Submit"/>
             </Form>
           </div>
 
