@@ -4,7 +4,8 @@ import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import backgroundImage from './openWeatherBackground.png';
+import Navbar from 'react-bootstrap/Navbar';
+import backgroundImage from './weatherBackGroundMinimal.jpg';
 import './App.css';
 
 // function for getting the day of the week using Date
@@ -54,6 +55,18 @@ function getWeatherIcons(results) {
 // returns the temperatures at 24 hour intervals
 // NOTE: API returns in 3 hour increments
 // increment list[] by 7 increments for 24 hour increments
+/*
+var items = [
+  [1, 2],
+  [3, 4],
+  [5, 6]
+];
+console.log(items[0][0]); // 1
+console.log(items[0][1]); // 2
+console.log(items[1][0]); // 3
+console.log(items[1][1]); // 4
+console.log(items);
+*/
 function getDailyTemperatures(results) {
   var temperaturesDaily = new Array(5);
   var incrementTempArray = 0;
@@ -129,94 +142,101 @@ class App extends React.Component {
       <div className="App">
         <img className="backGroundImage" src={backgroundImage} alt="Background" />
         <div className="contentContainer">
-          <header>
-            <h1 className="headerTitle">Quick Weather</h1>
-          </header>
+
+          <Navbar bg="dark" variant="dark">
+            <Navbar.Brand href="#home">Quick Weather</Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                <a href="https://github.com/williammabernathy/Quick-Weather">Source Code</a>
+              </Navbar.Text>
+            </Navbar.Collapse>
+          </Navbar>
 
           <div className="formContainer">
-            <Form onSubmit={ (event) => {this.fetchWeatherSearch(event)} }>
-              <Form.Group>
-                <Form.Label className="formLabel">Zip Code:</Form.Label>
-                <Form.Control
-                  className="controlSearchBar"
-                  value={this.state.searchZipCode}
-                  type="text"
-                  placeholder="5 digit zip code"
-                  onChange={ (event) => {this.setState({ searchZipCode: event.target.value })} }
-                />
-                <Form.Text className="formText">
-                  Currently, only the U.S. is supported.
+            <Form onSubmit={(event) => { this.fetchWeatherSearch(event) }}>
+            <Form.Group>
+              <Form.Label className="formLabel">Zip Code:</Form.Label>
+              <Form.Control
+                className="controlSearchBar"
+                value={this.state.searchZipCode}
+                type="text"
+                placeholder="5 digit zip code"
+                onChange={(event) => { this.setState({ searchZipCode: event.target.value }) }}
+              />
+              <Form.Text className="formText">
+                Currently, only the U.S. is supported.
                 </Form.Text>
-              </Form.Group>
+            </Form.Group>
 
-              <Button as="input" type="submit" value="Submit"/>
-            </Form>
-          </div>
+            <Button as="input" type="submit" value="Submit" />
+          </Form>
+        </div>
 
-          <div className="cardDeckContainer">
-            <CardDeck className="bsCardDeck">
+        <div className="cardDeckContainer">
+          <CardDeck className="bsCardDeck">
 
-              <Card className="weatherCards">
-                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
-                <Card.Body>
-                  <Card.Title>{days[0]}</Card.Title>
-                  <Card.Text>
-                    {temperaturesDaily[0]}&deg;F
+            <Card className="weatherCards">
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[0]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[0]}&deg;F
                     </Card.Text>
-                </Card.Body>
-              </Card>
+              </Card.Body>
+            </Card>
 
-              <Card className="weatherCards">
-                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
-                <Card.Body>
-                  <Card.Title>{days[1]}</Card.Title>
-                  <Card.Text>
-                    {temperaturesDaily[1]}&deg;F
+            <Card className="weatherCards">
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[1]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[1]}&deg;F
                     </Card.Text>
-                </Card.Body>
-              </Card>
+              </Card.Body>
+            </Card>
 
-              <Card className="weatherCards">
-                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
-                <Card.Body>
-                  <Card.Title>{days[2]}</Card.Title>
-                  <Card.Text>
-                    {temperaturesDaily[2]}&deg;F
+            <Card className="weatherCards">
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[2]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[2]}&deg;F
                     </Card.Text>
-                </Card.Body>
-              </Card>
+              </Card.Body>
+            </Card>
 
-              <Card className="weatherCards">
-                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
-                <Card.Body>
-                  <Card.Title>{days[3]}</Card.Title>
-                  <Card.Text>
-                    {temperaturesDaily[3]}&deg;F
+            <Card className="weatherCards">
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[3]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[3]}&deg;F
                     </Card.Text>
-                </Card.Body>
-              </Card>
+              </Card.Body>
+            </Card>
 
-              <Card className="weatherCards">
-                <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
-                <Card.Body>
-                  <Card.Title>{days[4]}</Card.Title>
-                  <Card.Text>
-                    {temperaturesDaily[4]}&deg;F
+            <Card className="weatherCards">
+              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
+              <Card.Body>
+                <Card.Title>{days[4]}</Card.Title>
+                <Card.Text>
+                  {temperaturesDaily[4]}&deg;F
                     </Card.Text>
-                </Card.Body>
-              </Card>
+              </Card.Body>
+            </Card>
 
-            </CardDeck>
+          </CardDeck>
 
-          </div>
+        </div>
 
-          <div className="footerContainer">
-            <footer>
-              Footer
+        <div className="footerContainer">
+          <footer>
+            Footer
             </footer>
-          </div>
         </div>
       </div>
+      </div >
     );
   }
 }
