@@ -60,8 +60,7 @@ function getDailyTemperatures(results) {
 
   for (var i = 0; i < 39; i++) {
     if (results.list[i].dt_txt.includes("12:00:00")) {
-      temperaturesDaily[incrementTempArray] = Math.round(results.list[i].main.temp * (9 / 5) - 459.67);
-      //temperaturesDaily[incrementTempArray] = results.list[i].main.temp;
+      temperaturesDaily[incrementTempArray] = Math.round(results.list[i].main.temp);
       incrementTempArray++;
     }
   }
@@ -91,14 +90,14 @@ class App extends React.Component {
 
   // fetch weather (open weather)
   fetchWeather(searchZipCode) {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchZipCode},us&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchZipCode},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
       .then(response => response.json())
       .then(results => this.setWeather(results));
   }
 
   fetchWeatherSearch(event) {
     event.preventDefault();
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${this.state.searchZipCode},us&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${this.state.searchZipCode},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
       .then(response => response.json())
       .then(results => this.setWeather(results));
   }
