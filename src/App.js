@@ -1,11 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+//import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import backgroundImage from './weatherBackGroundMinimal.jpg';
+import CardColumns from 'react-bootstrap/CardColumns';
+import CardDeck from 'react-bootstrap/CardDeck';
+//import weatherIconPlaceholder from './weatherPlaceHolderIcon.png';
 import './App.css';
 
 // function for getting the day of the week using Date
@@ -38,47 +40,38 @@ function getDaysOfWeek() {
   return days;
 }
 
-// function for getting all weather icons
-// placing them in an array
-// and returning to be used to populate cards in App
-function getWeatherIcons(results) {
-  var weatherIcons = new Array(5);
-
-  for (var i = 0; i < 5; i++) {
-    weatherIcons[i] = "http://openweathermap.org/img/wn/" + results.list[i].weather[0].icon + "@2x.png";
-  }
-
-  return weatherIcons;
-}
-
-// function for getting the daily temperatures
-// returns the temperatures at 24 hour intervals
-// NOTE: API returns in 3 hour increments
-// increment list[] by 7 increments for 24 hour increments
+// function for getting the weather data
 /*
-var items = [
-  [1, 2],
-  [3, 4],
-  [5, 6]
-];
-console.log(items[0][0]); // 1
-console.log(items[0][1]); // 2
-console.log(items[1][0]); // 3
-console.log(items[1][1]); // 4
-console.log(items);
+weatherInfo[i][0] = list.dt_text (date)
+weatherInfo[i][1] = temp
+weatherInfo[i][2] = feels like
+weatherInfo[i][3] = min temp
+weatherInfo[i][4] = max temp
+weatherInfo[i][5] = humidity %
+weatherInfo[i][6] = weather.main/weather.description
+weatherInfo[i][7] = wind speed
+weatherInfo[i][8] = weather icon
 */
-function getDailyTemperatures(results) {
-  var temperaturesDaily = new Array(5);
-  var incrementTempArray = 0;
+function getWeatherData(results) {
+  var weatherInfo = new Array(39);
 
   for (var i = 0; i < 39; i++) {
-    if (results.list[i].dt_txt.includes("12:00:00")) {
-      temperaturesDaily[incrementTempArray] = Math.round(results.list[i].main.temp);
-      incrementTempArray++;
-    }
+    weatherInfo[i] = new Array(9);
   }
 
-  return temperaturesDaily;
+  for (var j = 0; j < 39; j++) {
+    weatherInfo[j][0] = results.list[j].dt_txt;
+    weatherInfo[j][1] = Math.round(results.list[j].main.temp);
+    weatherInfo[j][2] = Math.round(results.list[j].main.feels_like);
+    weatherInfo[j][3] = Math.round(results.list[j].main.temp_min);
+    weatherInfo[j][4] = Math.round(results.list[j].main.temp_max);
+    weatherInfo[j][5] = results.list[j].main.humidity;
+    weatherInfo[j][6] = (results.list[j].weather[0].description).charAt(0).toUpperCase() + (results.list[j].weather[0].description).slice(1);
+    weatherInfo[j][7] = Math.round(results.list[j].wind.speed);
+    weatherInfo[j][8] = "http://openweathermap.org/img/wn/" + results.list[j].weather[0].icon + "@2x.png";
+  }
+
+  return weatherInfo;
 }
 
 class App extends React.Component {
@@ -134,13 +127,10 @@ class App extends React.Component {
     if (!results) { return null; }
 
     // sort our fetched data to populate fields
-    var days = getDaysOfWeek();
-    var weatherIcons = getWeatherIcons(results);
-    var temperaturesDaily = getDailyTemperatures(results);
+    var weatherInfo = getWeatherData(results);
 
     return (
       <div className="App">
-        <img className="backGroundImage" src={backgroundImage} alt="Background" />
         <div className="contentContainer">
 
           <Navbar bg="dark" variant="dark">
@@ -155,87 +145,54 @@ class App extends React.Component {
 
           <div className="formContainer">
             <Form onSubmit={(event) => { this.fetchWeatherSearch(event) }}>
-            <Form.Group>
-              <Form.Label className="formLabel">Zip Code:</Form.Label>
-              <Form.Control
-                className="controlSearchBar"
-                value={this.state.searchZipCode}
-                type="text"
-                placeholder="5 digit zip code"
-                onChange={(event) => { this.setState({ searchZipCode: event.target.value }) }}
-              />
-              <Form.Text className="formText">
-                Currently, only the U.S. is supported.
+              <Form.Group>
+                <Form.Label className="formLabel">Zip Code:</Form.Label>
+                <Form.Control
+                  className="controlSearchBar"
+                  value={this.state.searchZipCode}
+                  type="text"
+                  placeholder="5 digit zip code"
+                  onChange={(event) => { this.setState({ searchZipCode: event.target.value }) }}
+                />
+                <Form.Text className="formText">
+                  Currently, only the U.S. is supported.
                 </Form.Text>
-            </Form.Group>
+              </Form.Group>
 
-            <Button as="input" type="submit" value="Submit" />
-          </Form>
-        </div>
+              <Button as="input" type="submit" value="Submit" />
+            </Form>
+          </div>
 
-        <div className="cardDeckContainer">
-          <CardDeck className="bsCardDeck">
+          <div className="cardDeckContainer">
+            <CardDeck className= "cardDeck">
+              {weatherInfo.map((data, index) => {
+                return (
+                  <Card className="weatherCards" key={index} >
+                    <Card.Img className="bsCardImage" variant="top" src={weatherInfo[index][8]} alt="Weather Placeholder image" />
+                    <Card.Body>
+                      <Card.Title>{data[0]}</Card.Title>
+                      <Card.Text>
+                        Temp: {data[1]}&deg;F<br />
+                        Feels Like: {data[2]}&deg;F<br />
+                        Low: {data[3]}&deg;F<br />
+                        High: {data[4]}&deg;F<br />
+                        Humidity: {data[5]}%<br />
+                        Description: {data[6]}<br />
+                        Wind Speed: {data[7]} Miles/hour<br />
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                )
+              })}
+            </CardDeck>
+          </div>
 
-            <Card className="weatherCards">
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[0]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[0]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[0]}&deg;F
-                    </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card className="weatherCards">
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[1]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[1]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[1]}&deg;F
-                    </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card className="weatherCards">
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[2]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[2]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[2]}&deg;F
-                    </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card className="weatherCards">
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[3]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[3]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[3]}&deg;F
-                    </Card.Text>
-              </Card.Body>
-            </Card>
-
-            <Card className="weatherCards">
-              <Card.Img className="bsCardImage" variant="top" src={weatherIcons[4]} alt="Weather Placeholder image" />
-              <Card.Body>
-                <Card.Title>{days[4]}</Card.Title>
-                <Card.Text>
-                  {temperaturesDaily[4]}&deg;F
-                    </Card.Text>
-              </Card.Body>
-            </Card>
-
-          </CardDeck>
-
-        </div>
-
-        <div className="footerContainer">
-          <footer>
-            Footer
+          <div className="footerContainer">
+            <footer>
+              Footer
             </footer>
+          </div>
         </div>
-      </div>
       </div >
     );
   }
