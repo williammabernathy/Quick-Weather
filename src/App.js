@@ -1,43 +1,30 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
-//import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import CardColumns from 'react-bootstrap/CardColumns';
 import CardDeck from 'react-bootstrap/CardDeck';
-//import weatherIconPlaceholder from './weatherPlaceHolderIcon.png';
 import './App.css';
 
-// function for getting the day of the week using Date
-// returns and array of the current day + the next four
-// used to populate cards in App
-function getDaysOfWeek() {
-  var d = new Date();
-  var weekday = new Array(7);
-  var days = new Array(5);
+// function for getting the day, month and standard time using the date string
+// return from the api call
+function getDaysOfWeek(dateString) {
+  var d = new Date(dateString);
+  var weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var month = ["January", 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var currentDay = d.getDay();
+  var currentMonth = d.getMonth();
 
-  weekday[0] = "Sunday";
-  weekday[1] = "Monday";
-  weekday[2] = "Tuesday";
-  weekday[3] = "Wednesday";
-  weekday[4] = "Thursday";
-  weekday[5] = "Friday";
-  weekday[6] = "Saturday";
+  // convert military time to 12 hour format including AM or PM
+  var hours = d.getHours() ; 
+  var AmOrPm = hours >= 12 ? 'pm' : 'am';
+  hours = (hours % 12) || 12;var minutes = d.getMinutes() ;
+  var finalTime = hours + ":" + minutes + "0 " + AmOrPm.toUpperCase();
 
-  days[0] = weekday[currentDay];
+  var dayName = weekday[currentDay] + ", " + month[currentMonth] + " " + d.getDate() + " @" + finalTime;
 
-  for (var i = 0; i < 4; i++) {
-    currentDay++;
-    if (currentDay === 7) {
-      currentDay = 0;
-    }
-    days[i + 1] = weekday[currentDay];
-  }
-
-  return days;
+  return dayName;
 }
 
 // function for getting the weather data
@@ -51,12 +38,13 @@ weatherInfo[i][5] = humidity %
 weatherInfo[i][6] = weather.main/weather.description
 weatherInfo[i][7] = wind speed
 weatherInfo[i][8] = weather icon
+weatherInfo[i][9] = city name
 */
 function getWeatherData(results) {
   var weatherInfo = new Array(39);
 
   for (var i = 0; i < 39; i++) {
-    weatherInfo[i] = new Array(9);
+    weatherInfo[i] = new Array(10);
   }
 
   for (var j = 0; j < 39; j++) {
@@ -69,6 +57,7 @@ function getWeatherData(results) {
     weatherInfo[j][6] = (results.list[j].weather[0].description).charAt(0).toUpperCase() + (results.list[j].weather[0].description).slice(1);
     weatherInfo[j][7] = Math.round(results.list[j].wind.speed);
     weatherInfo[j][8] = "http://openweathermap.org/img/wn/" + results.list[j].weather[0].icon + "@2x.png";
+    weatherInfo[j][9] = results.city.name;
   }
 
   return weatherInfo;
@@ -146,7 +135,7 @@ class App extends React.Component {
           <div className="formContainer">
             <Form onSubmit={(event) => { this.fetchWeatherSearch(event) }}>
               <Form.Group>
-                <Form.Label className="formLabel">Zip Code:</Form.Label>
+                <Form.Label className="formLabel">Zip Code (Currently showing results for <b>{weatherInfo[0][9]}</b>):</Form.Label>
                 <Form.Control
                   className="controlSearchBar"
                   value={this.state.searchZipCode}
@@ -170,7 +159,7 @@ class App extends React.Component {
                   <Card className="weatherCards" key={index} >
                     <Card.Img className="bsCardImage" variant="top" src={weatherInfo[index][8]} alt="Weather Placeholder image" />
                     <Card.Body>
-                      <Card.Title>{data[0]}</Card.Title>
+                      <Card.Title>{getDaysOfWeek(data[0])}</Card.Title>
                       <Card.Text>
                         Temp: {data[1]}&deg;F<br />
                         Feels Like: {data[2]}&deg;F<br />
