@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import CardDeck from 'react-bootstrap/CardDeck';
 import './App.css';
 
@@ -17,16 +18,20 @@ function getDaysOfWeek(dateString) {
   var currentMonth = d.getMonth();
 
   // convert military time to 12 hour format including AM or PM
-  var hours = d.getHours() ; 
+  var hours = d.getHours();
   var AmOrPm = hours >= 12 ? "p.m." : "a.m.";
   hours = (hours % 12) || 12;
-  var minutes = d.getMinutes() ;
-  var finalTime = hours.toString() + ":" + minutes.toString() + "0 " + AmOrPm.toUpperCase();
+  var minutes = d.getMinutes();
+  var finalTime = hours + ":" + minutes + "0 " + AmOrPm.toUpperCase();
 
-  var dayName = weekday[currentDay] + ", " + month[currentMonth] + " " + d.getDate().toString() + " | " + finalTime;
+  var dayName = (weekday[currentDay] + ", " + month[currentMonth] + " " + d.getDate() + " | " + finalTime).toString();
 
   return dayName;
 }
+
+function scrollTop() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+};
 
 // function for getting the weather data
 /*
@@ -127,8 +132,11 @@ class App extends React.Component {
             <Navbar.Brand href="#home">Quick Weather</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
+              <Form className="backToTopForm">
+                <Button className="backToTopButton" variant="dark" onClick={scrollTop}>Back To Top</Button>
+              </Form>
               <Navbar.Text>
-                <a href="https://github.com/williammabernathy/Quick-Weather">Source Code</a>
+                <a href="https://github.com/williammabernathy/Quick-Weather">GitHub</a>
               </Navbar.Text>
             </Navbar.Collapse>
           </Navbar>
@@ -154,11 +162,11 @@ class App extends React.Component {
           </div>
 
           <div className="cardDeckContainer">
-            <CardDeck className= "cardDeck">
+            <CardDeck className="cardDeck">
               {weatherInfo.map((data, index) => {
                 return (
                   <Card className="weatherCards" key={index} >
-                    <Card.Img className="bsCardImage" variant="top" src={weatherInfo[index][8]} alt="Weather Placeholder image" />
+                    <Card.Img className="bsCardImage" variant="top" src={weatherInfo[index][8]} alt="Weather Image" />
                     <Card.Body>
                       <Card.Title>{getDaysOfWeek(data[0])}</Card.Title>
                       <Card.Text>

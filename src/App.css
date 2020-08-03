@@ -2,6 +2,9 @@
   z-index: -2;
 }
 
+/*
+  Page Content
+*/
 body {
   z-index: -1;
   background-image: url("./weatherBackGroundMinimal.jpg");
@@ -24,11 +27,25 @@ body {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+/*
+  Navbar 
+*/
 .navBar {
   width: 80%;
   margin: 0 auto;
 }
 
+.backToTopForm {
+  padding-right: 3%;
+}
+
+.backToTopButton {
+  background: #343a40;
+}
+
+/*
+  Form - Zip Search, Button and relevant text
+*/
 .formContainer {
   padding-left: 5%;
   padding-right: 5%;
@@ -49,10 +66,12 @@ body {
   font-size: x-small;
 }
 
+/*
+  Cards - Main content, weather cards to display data
+*/
 .cardDeckContainer {
   padding: 2%;
   height: 100%;
-  /*min-height: calc(100vh - 50px);*/
 }
 
 .cardDeck {
