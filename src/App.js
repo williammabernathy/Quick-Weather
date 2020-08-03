@@ -11,18 +11,19 @@ import './App.css';
 // return from the api call
 function getDaysOfWeek(dateString) {
   var d = new Date(dateString);
-  var weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  var month = ["January", 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   var currentDay = d.getDay();
   var currentMonth = d.getMonth();
 
   // convert military time to 12 hour format including AM or PM
   var hours = d.getHours() ; 
-  var AmOrPm = hours >= 12 ? 'pm' : 'am';
-  hours = (hours % 12) || 12;var minutes = d.getMinutes() ;
-  var finalTime = hours + ":" + minutes + "0 " + AmOrPm.toUpperCase();
+  var AmOrPm = hours >= 12 ? "p.m." : "a.m.";
+  hours = (hours % 12) || 12;
+  var minutes = d.getMinutes() ;
+  var finalTime = hours.toString() + ":" + minutes.toString() + "0 " + AmOrPm.toUpperCase();
 
-  var dayName = weekday[currentDay] + ", " + month[currentMonth] + " " + d.getDate() + " @" + finalTime;
+  var dayName = weekday[currentDay] + ", " + month[currentMonth] + " " + d.getDate().toString() + " | " + finalTime;
 
   return dayName;
 }
@@ -122,7 +123,7 @@ class App extends React.Component {
       <div className="App">
         <div className="contentContainer">
 
-          <Navbar bg="dark" variant="dark">
+          <Navbar className="navBar" bg="dark" variant="dark" fixed="top">
             <Navbar.Brand href="#home">Quick Weather</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
