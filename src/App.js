@@ -4,14 +4,13 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import CardDeck from 'react-bootstrap/CardDeck';
 import './App.css';
 
 // function for getting the day, month and standard time using the date string
 // return from the api call
 function getDaysOfWeek(dateString) {
-  var d = new Date(dateString);
+  var d = new Date(dateString.replace(' ', 'T'));
   var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   var currentDay = d.getDay();
