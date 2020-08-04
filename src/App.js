@@ -9,6 +9,7 @@ import './App.css';
 
 // function for getting the day, month and standard time using the date string
 // return from the api call
+// adding a comment to show chris
 function getDaysOfWeek(dateString) {
   var d = new Date(dateString.replace(' ', 'T'));
   var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -28,6 +29,7 @@ function getDaysOfWeek(dateString) {
   return dayName;
 }
 
+// function called to smooth scroll to the top of the page
 function scrollTop() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 };
@@ -48,6 +50,7 @@ weatherInfo[i][9] = city name
 function getWeatherData(results) {
   var weatherInfo = new Array(39);
 
+  // populate array with arrays
   for (var i = 0; i < 39; i++) {
     weatherInfo[i] = new Array(10);
   }
@@ -95,6 +98,7 @@ class App extends React.Component {
       .then(results => this.setWeather(results));
   }
 
+  // fetch weather on search submission
   fetchWeatherSearch(event) {
     event.preventDefault();
     fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${this.state.searchZipCode},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
@@ -108,6 +112,7 @@ class App extends React.Component {
     this.fetchWeather(searchZipCode);
   }
 
+  // set the searched zipCode
   handelZipChange(event) {
     event.preventDefault();
     this.setState({ searchZipCode: event.target.value });
@@ -127,7 +132,7 @@ class App extends React.Component {
       <div className="App">
         <div className="contentContainer">
 
-          <Navbar className="navBar" bg="dark" variant="dark" fixed="top">
+          <Navbar className="navBar" bg="dark" variant="dark" sticky="top">
             <Navbar.Brand href="#home">Quick Weather</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
@@ -166,8 +171,8 @@ class App extends React.Component {
                 return (
                   <Card className="weatherCards" key={index} >
                     <Card.Img className="bsCardImage" variant="top" src={weatherInfo[index][8]} alt="Weather Image" />
+                    <Card.Header as="h5">{getDaysOfWeek(data[0])}</Card.Header>
                     <Card.Body>
-                      <Card.Title>{getDaysOfWeek(data[0])}</Card.Title>
                       <Card.Text>
                         Temp: {data[1]}&deg;F<br />
                         Feels Like: {data[2]}&deg;F<br />
