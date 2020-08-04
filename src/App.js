@@ -9,7 +9,6 @@ import './App.css';
 
 // function for getting the day, month and standard time using the date string
 // return from the api call
-// adding a comment to show chris
 function getDaysOfWeek(dateString) {
   var d = new Date(dateString.replace(' ', 'T'));
   var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -191,7 +190,8 @@ class App extends React.Component {
 
           <div className="footerContainer">
             <footer>
-              Footer
+              Built by <a href="https://github.com/williammabernathy">William Abernathy</a> with React<br />
+              Data from <a href="https://openweathermap.org/api">Open Weather</a>
             </footer>
           </div>
         </div>
