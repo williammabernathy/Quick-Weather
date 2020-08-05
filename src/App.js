@@ -30,7 +30,7 @@ function getDaysOfWeek(dateString) {
 
 // function called to smooth scroll to the top of the page
 function scrollTop() {
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 // function for getting the weather data
@@ -100,9 +100,19 @@ class App extends React.Component {
   // fetch weather on search submission
   fetchWeatherSearch(event) {
     event.preventDefault();
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${this.state.searchZipCode},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+    var searchedValue = this.state.searchZipCode;
+    var validZip = /^\d{5}$|^\d{5}-\d{4}$/;
+
+    if(searchedValue === "" || searchedValue === null || !validZip.test(searchedValue))
+    {
+      alert("Invalid Input");
+    }
+    else
+    {
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchedValue},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
       .then(response => response.json())
       .then(results => this.setWeather(results));
+    }
   }
 
   // when component mounts/lifecycle update, update the searched term and refetch data
@@ -132,7 +142,7 @@ class App extends React.Component {
         <div className="contentContainer">
 
           <Navbar className="navBar" bg="dark" variant="dark" sticky="top">
-            <Navbar.Brand href="#home">Quick Weather</Navbar.Brand>
+            <Navbar.Brand href="">Quick Weather</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Form className="backToTopForm">
@@ -152,7 +162,7 @@ class App extends React.Component {
                   className="controlSearchBar"
                   value={this.state.searchZipCode}
                   type="text"
-                  placeholder="5 digit zip code"
+                  placeholder="Zip Code"
                   onChange={(event) => { this.setState({ searchZipCode: event.target.value }) }}
                 />
                 <Form.Text className="formText">
