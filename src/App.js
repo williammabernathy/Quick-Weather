@@ -47,6 +47,8 @@ weatherInfo[i][8] = weather icon
 weatherInfo[i][9] = city name
 */
 function getWeatherData(results) {
+  if (results.message === "city not found") { return null; }
+
   var weatherInfo = new Array(39);
 
   // populate array with arrays
@@ -103,15 +105,13 @@ class App extends React.Component {
     var searchedValue = this.state.searchZipCode;
     var validZip = /^\d{5}$|^\d{5}-\d{4}$/;
 
-    if(searchedValue === "" || searchedValue === null || !validZip.test(searchedValue))
-    {
+    if (searchedValue === "" || searchedValue === null || !validZip.test(searchedValue)) {
       alert("Invalid Input");
     }
-    else
-    {
+    else {
       fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchedValue},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
-      .then(response => response.json())
-      .then(results => this.setWeather(results));
+        .then(response => response.json())
+        .then(results => this.setWeather(results));
     }
   }
 
@@ -136,6 +136,60 @@ class App extends React.Component {
 
     // sort our fetched data to populate fields
     var weatherInfo = getWeatherData(results);
+
+    if (!weatherInfo) {
+      return (
+        <div className="App">
+          <div className="contentContainer">
+
+            <Navbar className="navBar" bg="dark" variant="dark" sticky="top">
+              <Navbar.Brand href="">Quick Weather</Navbar.Brand>
+              <Navbar.Toggle />
+              <Navbar.Collapse className="justify-content-end">
+                <Form className="backToTopForm">
+                  <Button className="backToTopButton" variant="dark" onClick={scrollTop}>Back To Top</Button>
+                </Form>
+                <Navbar.Text>
+                  <a href="https://github.com/williammabernathy/Quick-Weather">GitHub</a>
+                </Navbar.Text>
+              </Navbar.Collapse>
+            </Navbar>
+
+            <div className="formContainer">
+              <Form onSubmit={(event) => { this.fetchWeatherSearch(event) }}>
+                <Form.Group>
+                  <Form.Label className="formLabel">Zip Code (<b>Try Again</b>):</Form.Label>
+                  <Form.Control
+                    className="controlSearchBar"
+                    value={this.state.searchZipCode}
+                    type="text"
+                    placeholder="Zip Code"
+                    onChange={(event) => { this.setState({ searchZipCode: event.target.value }) }}
+                  />
+                  <Form.Text className="formText">
+                    Currently, only the U.S. is supported.
+                  </Form.Text>
+                </Form.Group>
+
+                <Button as="input" type="submit" value="Submit" />
+              </Form>
+            </div>
+
+            <div className="errorContainer">
+              Oops! Looks like something went wrong. Most likely, the zip code doesn't exists. <br />
+              If you believe the archives to be incomplete, while impossible, maybe submit an issue with <a href="https://openweathermap.org/api">Open Weather</a>
+            </div>
+
+            <div className="footerContainer">
+              <footer>
+                Built by <a href="https://github.com/williammabernathy">William Abernathy</a> with React<br />
+                Data from <a href="https://openweathermap.org/api">Open Weather</a>
+              </footer>
+            </div>
+          </div>
+        </div >
+      );
+    }
 
     return (
       <div className="App">
