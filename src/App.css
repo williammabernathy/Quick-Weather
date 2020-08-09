@@ -74,6 +74,7 @@ body {
   padding: 2%;
   height: 100%;
   min-height: 100vh;
+  margin-bottom: 13%;
 }
 
 .cardDeck {
@@ -117,6 +118,7 @@ body {
   width: 100%;
   text-align: left !important;
   bottom: 0 !important;
+  ;
 }
 
 .footer,

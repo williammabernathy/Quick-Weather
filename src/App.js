@@ -56,6 +56,7 @@ function getWeatherData(results) {
     weatherInfo[i] = new Array(10);
   }
 
+  // will nested arrays with data
   for (var j = 0; j < 39; j++) {
     weatherInfo[j][0] = results.list[j].dt_txt;
     weatherInfo[j][1] = Math.round(results.list[j].main.temp);
@@ -72,6 +73,9 @@ function getWeatherData(results) {
   return weatherInfo;
 }
 
+/*
+  Main
+*/
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -137,6 +141,7 @@ class App extends React.Component {
     // sort our fetched data to populate fields
     var weatherInfo = getWeatherData(results);
 
+    // if weatherInfo returns an error for an incorrect zip code, display appropriately 
     if (!weatherInfo) {
       return (
         <div className="App">
