@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/Quick-Weather/static/css/main.41632b2c.chunk.css",
-    "main.js": "/Quick-Weather/static/js/main.ee7be30f.chunk.js",
-    "main.js.map": "/Quick-Weather/static/js/main.ee7be30f.chunk.js.map",
-    "runtime-main.js": "/Quick-Weather/static/js/runtime-main.e731f2bb.js",
-    "runtime-main.js.map": "/Quick-Weather/static/js/runtime-main.e731f2bb.js.map",
-    "static/css/2.86846cc5.chunk.css": "/Quick-Weather/static/css/2.86846cc5.chunk.css",
-    "static/js/2.bd60089e.chunk.js": "/Quick-Weather/static/js/2.bd60089e.chunk.js",
-    "static/js/2.bd60089e.chunk.js.map": "/Quick-Weather/static/js/2.bd60089e.chunk.js.map",
-    "index.html": "/Quick-Weather/index.html",
-    "static/css/2.86846cc5.chunk.css.map": "/Quick-Weather/static/css/2.86846cc5.chunk.css.map",
-    "static/css/main.41632b2c.chunk.css.map": "/Quick-Weather/static/css/main.41632b2c.chunk.css.map",
-    "static/js/2.bd60089e.chunk.js.LICENSE.txt": "/Quick-Weather/static/js/2.bd60089e.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/Quick-Weather/static/media/weatherBackGroundMinimal.d12fc15d.jpg"
+    "main.css": "./static/css/main.c6d7ee59.chunk.css",
+    "main.js": "./static/js/main.f7a05f1b.chunk.js",
+    "main.js.map": "./static/js/main.f7a05f1b.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.feb9862d.js",
+    "runtime-main.js.map": "./static/js/runtime-main.feb9862d.js.map",
+    "static/css/2.86846cc5.chunk.css": "./static/css/2.86846cc5.chunk.css",
+    "static/js/2.bd60089e.chunk.js": "./static/js/2.bd60089e.chunk.js",
+    "static/js/2.bd60089e.chunk.js.map": "./static/js/2.bd60089e.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/2.86846cc5.chunk.css.map": "./static/css/2.86846cc5.chunk.css.map",
+    "static/css/main.c6d7ee59.chunk.css.map": "./static/css/main.c6d7ee59.chunk.css.map",
+    "static/js/2.bd60089e.chunk.js.LICENSE.txt": "./static/js/2.bd60089e.chunk.js.LICENSE.txt",
+    "static/media/App.css": "./static/media/weatherBackGroundMinimal.d12fc15d.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e731f2bb.js",
+    "static/js/runtime-main.feb9862d.js",
     "static/css/2.86846cc5.chunk.css",
     "static/js/2.bd60089e.chunk.js",
-    "static/css/main.41632b2c.chunk.css",
-    "static/js/main.ee7be30f.chunk.js"
+    "static/css/main.c6d7ee59.chunk.css",
+    "static/js/main.f7a05f1b.chunk.js"
   ]
 }

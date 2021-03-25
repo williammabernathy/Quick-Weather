@@ -2,7 +2,7 @@
   "name": "quick-weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://williammabernathy.github.io/Quick-Weather",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

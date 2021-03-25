@@ -148,7 +148,7 @@ class App extends React.Component {
           <div className="contentContainer">
 
             <Navbar className="navBar" bg="dark" variant="dark" sticky="top">
-              <Navbar.Brand href="">Quick Weather</Navbar.Brand>
+              <Navbar.Brand>Quick Weather</Navbar.Brand>
               <Navbar.Toggle />
               <Navbar.Collapse className="justify-content-end">
                 <Form className="backToTopForm">
@@ -201,7 +201,7 @@ class App extends React.Component {
         <div className="contentContainer">
 
           <Navbar className="navBar" bg="dark" variant="dark" sticky="top">
-            <Navbar.Brand href="">Quick Weather</Navbar.Brand>
+            <Navbar.Brand>Quick Weather</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Form className="backToTopForm">
