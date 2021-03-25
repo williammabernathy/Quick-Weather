@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import CardDeck from 'react-bootstrap/CardDeck';
+import  { OPEN_API_KEY } from './config';
 import './App.css';
 
 // function for getting the day, month and standard time using the date string
@@ -98,7 +99,7 @@ class App extends React.Component {
 
   // fetch weather (open weather)
   fetchWeather(searchZipCode) {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchZipCode},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchZipCode},us&units=imperial&appid=${OPEN_API_KEY}`)
       .then(response => response.json())
       .then(results => this.setWeather(results));
   }
@@ -113,7 +114,7 @@ class App extends React.Component {
       alert("Invalid Input");
     }
     else {
-      fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchedValue},us&units=imperial&appid=08d4fea27ae00e7c79b59befd31e8d18`)
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${searchedValue},us&units=imperial&appid=${OPEN_API_KEY}`)
         .then(response => response.json())
         .then(results => this.setWeather(results));
     }
