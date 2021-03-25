@@ -10,9 +10,9 @@
     <br />
     <a href="https://wills-quick-weather.netlify.app/">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/williammabernathy/Quick-Weather/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/williammabernathy/Quick-Weather/issues">Request Feature</a>
   </p>
 </p>
 
@@ -54,18 +54,19 @@ Simple web app built to pratice my React.js skills while interacting with an API
 
 ### Installation
 
-1. Get a free API Key at [https://openweathermap.org/api](https://openweathermap.org/api)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/williammabernathy/Loop-Hero-Randomizer.git
    ```
+2. Navtigate to cloned folder 'loop-hero-randomizer'
+
 3. Install NPM packages
    ```sh
    npm install
    ```
-4. Create a `config.js` file and enter your API in `config.js`:
-   ```JS
-   const OPEN_API_KEY = 'ENTER YOUR API';
+4. Run locally
+   ```sh
+   npm start
    ```
 
 <!-- CONTRIBUTING -->
@@ -76,8 +77,6 @@ Simple web app built to pratice my React.js skills while interacting with an API
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-
 
 <!-- LICENSE -->
 ## License
